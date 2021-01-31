@@ -2,22 +2,22 @@
 
 ## users テーブル
 
-| Column                | Type   | Options     |
-| --------------------- | ------ | ----------- |
-| nickname              | string | null: false |
-| email                 | string | null: false |
-| encrypted_password    | string | null: false |
-| familyname            | string | null: false |
-| firstname             | string | null: false |
-| familynamekana        | string | null: false |
-| firstnamekana         | string | null: false |
-| date                  | date   | null: false |
+| Column                | Type   | Options                   |
+| --------------------- | ------ | ------------------------- |
+| nickname              | string | null: false               |
+| email                 | string | null: false, unique: true |
+| encrypted_password    | string | null: false               |
+| familyname            | string | null: false               |
+| firstname             | string | null: false               |
+| familynamekana        | string | null: false               |
+| firstnamekana         | string | null: false               |
+| date                  | date   | null: false               |
 
 ### Association
 
 - has_many :items
 - has_many :comments
-- has_one :buyers
+- has_many :buyers
 
 ## items テーブル
 
@@ -37,7 +37,7 @@
 
 - belongs_to :user
 - has_many :comments
-- has_one :buyers
+- has_one :buyer
 
 ## comments テーブル
 
@@ -63,7 +63,7 @@
 
 - belongs_to :user
 - belongs_to :item
-- has_one :sends
+- has_one :send
 
 ## sends テーブル
 
@@ -79,4 +79,4 @@
 
 ### Association
 
-- belongs_to: buyer
+- belongs_to :buyer
