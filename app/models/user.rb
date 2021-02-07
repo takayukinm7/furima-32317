@@ -4,13 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :nickname, presence: true
-
-  validates :familyname, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
-  validates :firstname, presence: true, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
-  validates :familynamekana, presence: true, format: { with: /\A[ァ-ヶ]+\z/ }
-  validates :firstnamekana, presence: true, format: { with: /\A[ァ-ヶ]+\z/ }
-  validates :date, presence: true
+  with_options presence: true do
+    validates :nickname
+    validates :familyname, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
+    validates :firstname, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ }
+    validates :familynamekana, format: { with: /\A[ァ-ヶ]+\z/ }
+    validates :firstnamekana, format: { with: /\A[ァ-ヶ]+\z/ }
+    validates :date
+  end
 
   has_many :items
   has_many :comments
