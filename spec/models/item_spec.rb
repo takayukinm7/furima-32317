@@ -11,11 +11,11 @@ RSpec.describe Item, type: :model do
         expect(@item).to be_valid
       end
       it 'priceの範囲が300~9999999であれば登録できる' do
-        @item.price = '300'
+        @item.price = 300
         expect(@item).to be_valid
       end
       it 'priceは半角数字であれば登録できる' do
-        @item.price = '300'
+        @item.price = 300
         expect(@item).to be_valid
       end
     end
@@ -40,25 +40,50 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
+      it 'category_idが1では登録できない' do
+        @item.category_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
+      end
       it 'state_idが空では登録できない' do
         @item.state_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("State can't be blank")
+      end
+      it 'state_idが1では登録できない' do
+        @item.state_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("State must be other than 1")
       end
       it 'cost_idが空では登録できない' do
         @item.cost_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Cost can't be blank")
       end
+      it 'cost_idが1では登録できない' do
+        @item.cost_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Cost must be other than 1")
+      end
       it 'prefecture_idが空では登録できない' do
         @item.prefecture_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
+      it 'prefecture_idが1では登録できない' do
+        @item.prefecture_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
+      end
       it 'day_idが空では登録できない' do
         @item.day_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Day can't be blank")
+      end
+      it 'day_idが1では登録できない' do
+        @item.day_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Day must be other than 1")
       end
       it 'priceが空では登録できない' do
         @item.price = ''
@@ -66,17 +91,27 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it 'priceが300未満で登録できない' do
-        @item.price = '200'
+        @item.price = 200
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
       end
       it 'priceが10000000より大きく登録できない' do
-        @item.price = '10000000'
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
       end
       it 'priceは半角数字でないと登録できない' do
         @item.price = '３００'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it 'priceは半角英数字混合では登録できない' do
+        @item.price = '5a8'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it 'priceは半角英字では登録できない' do
+        @item.price = 'asa'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
       end
