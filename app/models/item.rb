@@ -6,7 +6,7 @@ class Item < ApplicationRecord
     validates :text
     validates :image
     validates :price, format: { with: /\A[0-9]+\z/ }
-    validates_inclusion_of :price, in: 3000..9_999_999
+    validates_inclusion_of :price, in: 300..9_999_999
     validates :user
     with_options numericality: { other_than: 1 } do
       validates :category_id
