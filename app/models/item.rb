@@ -20,7 +20,7 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_many :comments
-  has_one :buyer
+  #has_one :buyer
   has_one_attached :image
 
   belongs_to :category
