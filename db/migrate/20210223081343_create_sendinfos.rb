@@ -1,8 +1,8 @@
-class CreateSends < ActiveRecord::Migration[6.0]
+class CreateSendinfos < ActiveRecord::Migration[6.0]
   def change
-    create_table :sends do |t|
+    create_table :sendinfos do |t|
       t.string :postal_code,    default: "",  null: false
-      t.integer :prefecture,                  null: false
+      t.integer :prefecture_id,               null: false
       t.string :city,           default: "",  null: false
       t.string :numbering,      default: "",  null: false
       t.string :building,       default: ""
