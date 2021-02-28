@@ -1,4 +1,7 @@
 class BuyersController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :create]
+  before_action :move_to_items_index, only: [:index, :create]
+
   def index
     @item = Item.find(params[:item_id])
     @pay_form = PayForm.new
@@ -17,6 +20,13 @@ class BuyersController < ApplicationController
   end
 
   private
+
+  def move_to_items_index
+    @item = Item.find(params[:item_id])
+    redirect_to items_path unless @item.user_id != current_user.id
+    redirect_to items_path unless @item.buyer == nil
+  end
+
 
   def buyer_params
     params.require(:pay_form).permit(:postal_code, :prefecture_id, :city, :numbering, :building, :phone).merge(
