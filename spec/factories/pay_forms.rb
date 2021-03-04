@@ -7,7 +7,5 @@ FactoryBot.define do
     numbering { '1-1' }
     building { '1111' }
     phone { 19_012_231_233 }
-    user_id { 1 }
-    item_id { 1 }
   end
 end

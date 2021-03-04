@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.describe PayForm, type: :model do
   before do
-    @pay_form = FactoryBot.build(:pay_form)
+    sleep 0.5
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @pay_form = FactoryBot.build(:pay_form, user_id: user.id, item_id: item.id)
   end
 
   describe '購入者情報の保存' do
@@ -36,6 +39,12 @@ RSpec.describe PayForm, type: :model do
         expect(@pay_form.errors.full_messages).to include("Prefecture can't be blank")
       end
 
+      it '都道府県が-出ない時' do
+        @pay_form.prefecture_id = '1'
+        @pay_form.valid?
+        expect(@pay_form.errors.full_messages).to include("Prefecture must be other than 1")
+      end
+
       it '市区町村が空の時' do
         @pay_form.city = ''
         @pay_form.valid?
@@ -57,7 +66,13 @@ RSpec.describe PayForm, type: :model do
       it '電話番号が１２文字以上の時' do
         @pay_form.phone = 111_111_111_111
         @pay_form.valid?
-        expect(@pay_form.errors.full_messages).to include('Phone is too long (maximum is 11 characters)')
+        expect(@pay_form.errors.full_messages).to include('Phone is invalid')
+      end
+
+      it '電話番号に-がある時' do
+        @pay_form.phone = 190-1232-12
+        @pay_form.valid?
+        expect(@pay_form.errors.full_messages).to include("Phone is invalid")
       end
     end
   end
