@@ -1,14 +1,13 @@
 class BuyersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
+  before_action :find_iten, only: [:index, :create, :move_to_items_index]
   before_action :move_to_items_index, only: [:index, :create]
 
   def index
-    @item = Item.find(params[:item_id])
     @pay_form = PayForm.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @pay_form = PayForm.new(buyer_params)
     if @pay_form.valid?
       pay_item
@@ -21,10 +20,12 @@ class BuyersController < ApplicationController
 
   private
 
-  def move_to_items_index
+  def find_item
     @item = Item.find(params[:item_id])
-    redirect_to items_path unless @item.user_id != current_user.id
-    redirect_to items_path unless @item.buyer == nil
+  end
+
+  def move_to_items_index
+    redirect_to items_path unless @item.user_id != current_user.id && @item.buyer == nil
   end
 
 
@@ -43,4 +44,5 @@ class BuyersController < ApplicationController
       currency: 'jpy'
     )
   end
+
 end

@@ -13,6 +13,12 @@ RSpec.describe PayForm, type: :model do
       it 'すべての値が正しく入力されていれば保存できること' do
         expect(@pay_form).to be_valid
       end
+
+      it 'buildingが抜けていても保存できること' do
+        @pay_form.building = nil
+        expect(@pay_form).to be_vaild
+      end
+
     end
 
     context '購入者情報が保存できない場合' do
@@ -69,7 +75,7 @@ RSpec.describe PayForm, type: :model do
         expect(@pay_form.errors.full_messages).to include('Phone is invalid')
       end
 
-      it '電話番号に-がある時' do
+      it '数字のみでないと登録できないこと' do
         @pay_form.phone = 190-1232-12
         @pay_form.valid?
         expect(@pay_form.errors.full_messages).to include("Phone is invalid")
