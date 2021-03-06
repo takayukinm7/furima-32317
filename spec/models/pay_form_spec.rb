@@ -14,9 +14,9 @@ RSpec.describe PayForm, type: :model do
         expect(@pay_form).to be_valid
       end
 
-      it 'buildingが抜けていても保存できること' do
-        @pay_form.building = nil
-        expect(@pay_form).to be_vaild
+      it 'buildingが空でも保存できること' do
+        @pay_form.building = ''
+        expect(@pay_form).to be_valid
       end
 
     end
@@ -45,8 +45,8 @@ RSpec.describe PayForm, type: :model do
         expect(@pay_form.errors.full_messages).to include("Prefecture can't be blank")
       end
 
-      it '都道府県が-出ない時' do
-        @pay_form.prefecture_id = '1'
+      it '都道府県が-でない時' do
+        @pay_form.prefecture_id = 1
         @pay_form.valid?
         expect(@pay_form.errors.full_messages).to include("Prefecture must be other than 1")
       end
@@ -77,6 +77,12 @@ RSpec.describe PayForm, type: :model do
 
       it '数字のみでないと登録できないこと' do
         @pay_form.phone = 190-1232-12
+        @pay_form.valid?
+        expect(@pay_form.errors.full_messages).to include("Phone is invalid")
+      end
+
+      it '英数混合では登録できないこと' do
+        @pay_form.phone = 'a34d'
         @pay_form.valid?
         expect(@pay_form.errors.full_messages).to include("Phone is invalid")
       end
