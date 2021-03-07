@@ -86,6 +86,18 @@ RSpec.describe PayForm, type: :model do
         @pay_form.valid?
         expect(@pay_form.errors.full_messages).to include("Phone is invalid")
       end
+
+      it 'user_idが空では購入できないこと' do
+        @pay_form.user_id = ''
+        @pay_form.valid?
+        expect(@pay_form.errors.full_messages).to include("User id can't be blank")
+      end
+
+      it 'item_idが空では購入できないこと' do
+        @pay_form.item_id = ''
+        @pay_form.valid?
+        expect(@pay_form.errors.full_messages).to include("Item id can't be blank")
+      end
     end
   end
 end
