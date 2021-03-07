@@ -1,3 +1,3 @@
 class Sendinfo < ApplicationRecord
-  belongs_to :sendinfo
+  belongs_to :buyer
 end
