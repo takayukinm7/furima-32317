@@ -34,7 +34,7 @@ RSpec.describe PayForm, type: :model do
       end
 
       it '郵便番号にハイフンがない時' do
-        @pay_form.postal_code = 1231234
+        @pay_form.postal_code = '1231234'
         @pay_form.valid?
         expect(@pay_form.errors.full_messages).to include('Postal code is invalid')
       end
@@ -70,13 +70,13 @@ RSpec.describe PayForm, type: :model do
       end
 
       it '電話番号が１２文字以上の時' do
-        @pay_form.phone = 111111111111
+        @pay_form.phone = '111111111111'
         @pay_form.valid?
         expect(@pay_form.errors.full_messages).to include('Phone is invalid')
       end
 
       it '数字のみでないと登録できないこと' do
-        @pay_form.phone = 190-1232-12
+        @pay_form.phone = '190-1232-12'
         @pay_form.valid?
         expect(@pay_form.errors.full_messages).to include("Phone is invalid")
       end

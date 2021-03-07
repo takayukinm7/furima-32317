@@ -5,6 +5,6 @@ FactoryBot.define do
     prefecture_id { 2 }
     city { '豊島区' }
     numbering { '1-1' }
-    phone { 19_012_231_233 }
+    phone { '09000000000' }
   end
 end

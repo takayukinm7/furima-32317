@@ -1,6 +1,6 @@
 class BuyersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
-  before_action :find_item, only: [:index, :create, :move_to_items_index]
+  before_action :find_item, only: [:index, :create]
   before_action :move_to_items_index, only: [:index, :create]
 
   def index
