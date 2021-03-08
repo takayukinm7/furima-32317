@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_17_115518) do
+ActiveRecord::Schema.define(version: 2021_02_23_081343) do
 
   create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
@@ -57,9 +57,9 @@ ActiveRecord::Schema.define(version: 2021_02_17_115518) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
-  create_table "sends", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sendinfos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "postal_code", default: "", null: false
-    t.integer "prefecture", null: false
+    t.integer "prefecture_id", null: false
     t.string "city", default: "", null: false
     t.string "numbering", default: "", null: false
     t.string "building", default: ""
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 2021_02_17_115518) do
     t.bigint "buyer_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["buyer_id"], name: "index_sends_on_buyer_id"
+    t.index ["buyer_id"], name: "index_sendinfos_on_buyer_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

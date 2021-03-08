@@ -1,4 +1,5 @@
 class Buyer < ApplicationRecord
-  has_one :send
+  has_one :sendinfo
   belongs_to :item
+  belongs_to :user
 end
